@@ -51,7 +51,6 @@ class SbatchGUI:
         self.frame_cpus = tk.CTkFrame(self.frame_main_controls)
         self.frame_ram = tk.CTkFrame(self.frame_main_controls)
         self.frame_log = tk.CTkFrame(self.frame_main_controls)
-        # self.frame_temp = tk.CTkFrame(self.frame_main_controls)
         self.frame_command = tk.CTkFrame(self.frame_main_controls)
         self.frame_generate = tk.CTkFrame(self.frame_main_controls, fg_color=light_gray)
 
@@ -65,7 +64,6 @@ class SbatchGUI:
         self.frame_cpus.grid(sticky='NWES',row=3, column=0, padx=self.main_controls_xmargins, pady=self.main_controls_ymargins)
         self.frame_ram.grid(sticky='NWES',row=4, column=0, padx=self.main_controls_xmargins, pady=self.main_controls_ymargins)
         self.frame_log.grid(sticky='NWES',row=5, column=0, columnspan=2, padx=self.main_controls_xmargins, pady=self.main_controls_ymargins)
-        # self.frame_temp.grid(sticky='NWES',row=6, column=0, padx=self.main_controls_xmargins, pady=self.main_controls_ymargins)
         self.frame_command.grid(sticky='NWES',row=7, column=0, columnspan=2, padx=self.main_controls_xmargins, pady=self.main_controls_ymargins)
         self.frame_generate.grid(sticky = 'E', row=8, column=0, columnspan=2, padx=10, pady=self.main_controls_ymargins)
 
@@ -74,11 +72,9 @@ class SbatchGUI:
         self.main_time_label.grid(sticky='NWES', row=3, column=1, columnspan=3, padx=5, pady=5)
 
         # Job Name
-        # self.job_name_label = tk.CTkLabel(self.frame_name, text="Job Name", fg_color=medium_gray, font=font_medium)
         self.job_name_entry = tk.CTkEntry(self.frame_name, width=self.job_name_length, font=font_big, text_color=bright_orange, fg_color = bright_black, corner_radius=1, placeholder_text='Job name')
         self.job_random_name_button = tk.CTkButton(self.frame_name, command=self.get_random_id, text='Random', width=40)
         self.job_name_entry.grid(row=1, column=1, padx=5, pady=10, columnspan=1)
-        # self.job_name_label.grid(sticky='W', row=0, column=0, padx=(10, 8), pady=1)
         self.job_random_name_button.grid(sticky = 'E', row=1, column=0, padx=(10,1), pady=10)
 
         # Number of Nodes
@@ -88,6 +84,7 @@ class SbatchGUI:
         self.value_nodes_entry = tk.CTkEntry(self.frame_nodes, textvariable=self.var_nodes, width=self.value_entries_width)
         self.nodes_entry.grid(sticky='E', row=0, column=2, padx=5, pady=5)
         self.value_nodes_entry.grid(row=0, column=3, padx=10, pady=5)
+        self.var_nodes.set(1)
 
         # Number of Tasks
         self.tasks_label = tk.CTkLabel(self.frame_tasks, text="Tasks", width=self.labels_width)
@@ -96,6 +93,7 @@ class SbatchGUI:
         self.tasks_entry.grid(sticky='W', row=0, column=1, padx=5, pady=5)
         self.value_tasks_entry = tk.CTkEntry(self.frame_tasks, textvariable=self.var_tasks, width=self.value_entries_width)
         self.value_tasks_entry.grid(row=0, column=3, padx=10, pady=5)
+        self.var_tasks.set(1)
 
         # Number of CPUs per Task
         self.cpus_label = tk.CTkLabel(self.frame_cpus, text="CPUs/Task", width=self.labels_width)
@@ -104,6 +102,7 @@ class SbatchGUI:
         self.cpus_entry.grid(row=0, column=1, padx=5, pady=5)
         self.value_cpu_entry = tk.CTkEntry(self.frame_cpus, textvariable=self.var_cpus, width=self.value_entries_width)
         self.value_cpu_entry.grid(row=0, column=3, padx=10, pady=5)
+        self.var_cpus.set(1)
 
         # Memory
         self.memory_label = tk.CTkLabel(self.frame_ram, text="RAM (GB)", width=self.labels_width)
@@ -112,6 +111,7 @@ class SbatchGUI:
         self.memory_entry.grid(row=0, column=1, padx=5, pady=5)
         self.value_ram_entry = tk.CTkEntry(self.frame_ram, textvariable=self.var_ram, width=self.value_entries_width)
         self.value_ram_entry.grid(row=0, column=3, padx=10, pady=5)
+        self.var_ram.set(1)
 
         # Time
         self.time_days_label = tk.CTkLabel(self.frame_hours, text="Days", fg_color=medium_gray, width=12)
@@ -221,7 +221,6 @@ COMMAND\t{command}
 
 if __name__ == "__main__":
     root = tk.CTk()
-    # root.geometry("445x775")
     root.resizable(False, False)
     app = SbatchGUI(root)
     root.mainloop()
