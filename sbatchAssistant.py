@@ -177,10 +177,10 @@ class SbatchGUI:
 
     def generate_sbatch_command(self):
         job_name = self.job_name_entry.get()
-        nodes = int(self.nodes_entry.get())
-        tasks = int(self.tasks_entry.get())
-        cpus = int(self.cpus_entry.get())
-        memory = int(self.memory_entry.get())
+        nodes = round(self.nodes_entry.get())
+        tasks = round(self.tasks_entry.get())
+        cpus = round(self.cpus_entry.get())
+        memory = round(self.memory_entry.get())
         time = self.get_time()
         output = self.log_entry.get()
         command = self.command_text.get("1.0", tk.END).strip()
@@ -192,10 +192,10 @@ class SbatchGUI:
 
     def generate_report(self):
         job_name = self.job_name_entry.get()
-        nodes = int(self.nodes_entry.get())
-        tasks = int(self.tasks_entry.get())
-        cpus = int(self.cpus_entry.get())
-        memory = int(self.memory_entry.get())
+        nodes = round(self.nodes_entry.get())
+        tasks = round(self.tasks_entry.get())
+        cpus = round(self.cpus_entry.get())
+        memory = round(self.memory_entry.get())
         time = self.get_time()
         output = self.log_entry.get()
         command = self.command_text.get("1.0", tk.END).strip()
