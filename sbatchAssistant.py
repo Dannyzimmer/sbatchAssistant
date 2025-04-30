@@ -143,9 +143,9 @@ class SbatchGUI:
 
         # Generate Buttons
         self.generate_command_button = tk.CTkButton(self.frame_generate, text="Generate sbatch Command", command=self.generate_sbatch_command)
-        self.generate_report_button = tk.CTkButton(self.frame_generate, text="Generate Report", command=self.generate_report, width=110)
+        self.generate_header_button = tk.CTkButton(self.frame_generate, text="Generate Header", command=self.generate_header, width=110)
         self.generate_command_button.grid(sticky='E', row=0, column=1, padx=10, pady=10)
-        self.generate_report_button.grid(sticky='E', row=0, column=0, padx=0, pady=10)
+        self.generate_header_button.grid(sticky='E', row=0, column=0, padx=0, pady=10)
 
         # Output
         self.result_label = tk.CTkLabel(root, text="Output")
@@ -190,7 +190,7 @@ class SbatchGUI:
         self.result_text.delete("1.0", tk.END)
         self.result_text.insert(tk.END, sbatch_command)
 
-    def generate_report(self):
+    def generate_header(self):
         job_name = self.job_name_entry.get()
         nodes = round(self.nodes_entry.get())
         tasks = round(self.tasks_entry.get())
@@ -198,19 +198,20 @@ class SbatchGUI:
         memory = round(self.memory_entry.get())
         time = self.get_time()
         output = self.log_entry.get()
-        command = self.command_text.get("1.0", tk.END).strip()
-        report_text = f"""
-JOB_NAME\t{job_name}
-TIME\t{time}
-NODES\t{nodes}
-TASKS\t{tasks}
-CPUS_PER_TASK\t{cpus}
-RAM\t{memory}
-OUTPUT\t{output}
-COMMAND\t{command}
-"""
+
+        header = []
+        header.append(f"#!/bin/bash")
+        header.append(f"#SBATCH --job-name={job_name}")
+        header.append(f"#SBATCH --nodes={nodes}")
+        header.append(f"#SBATCH --ntasks={tasks}")
+        header.append(f"#SBATCH --cpus-per-task={cpus}")
+        header.append(f"#SBATCH --mem={memory}G")
+        header.append(f"#SBATCH --time={time}")
+        header.append(f"#SBATCH --output={output}")
+        header_text = "\n".join(header)
+
         self.result_text.delete("1.0", tk.END)
-        self.result_text.insert(tk.END, report_text.strip())
+        self.result_text.insert(tk.END, header_text)
     
     def refresh_time(self, _ = None):
         days = int(self.time_days.get())
